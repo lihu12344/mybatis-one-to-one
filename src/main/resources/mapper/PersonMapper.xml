@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.pojo.Person">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="card_id" jdbcType="INTEGER" property="cardId" />
+  </resultMap>
+
+  <resultMap id="personMap" type="personMap">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="age" column="age"/>
+    <association property="card" column="card_id" select="com.example.demo.dao.CardMapper.getById"/>
+  </resultMap>
+
+  <select id="getById" resultMap="BaseResultMap">
+    select * from person where id=#{id};
+  </select>
+
+  <select id="getAllPersonMap" resultMap="personMap">
+    select * from person;
+  </select>
+</mapper>
